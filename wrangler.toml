@@ -1,0 +1,13 @@
+name = "cv-booklet-app"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "dist"
+
+# Optional Cloudflare D1 & R2 bindings for persisting CV edits and uploaded image assets
+# [[d1_databases]]
+# binding = "CV_DB"
+# database_name = "cv-booklet-db"
+# database_id = "replace-with-d1-database-id"
+
+# [[r2_buckets]]
+# binding = "CV_ASSETS"
+# bucket_name = "cv-booklet-assets"

@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+}
+
+/* A4 Portrait Aspect Ratio (210mm x 297mm / 2480 x 3508 px) */
+.a4-page {
+  width: 794px;
+  height: 1123px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #333333;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  user-select: text;
+}
+
+/* A2 Portrait Sheet (420mm x 594mm / 2x2 grid of A4 pages = 1588px x 2246px) */
+.a2-sheet {
+  width: 1588px;
+  height: 2246px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: 794px 794px;
+  grid-template-rows: 1123px 1123px;
+  box-sizing: border-box;
+}
+
+.font-handwriting {
+  font-family: 'Snell Roundhand', 'Apple Chancery', 'Bradley Hand', 'Brush Script MT', cursive;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-sheet-wrapper {
+    page-break-after: always;
+    break-after: page;
+    transform: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+  @page {
+    size: 420mm 594mm;
+    margin: 0;
+  }
+}
