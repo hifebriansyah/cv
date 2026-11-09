@@ -1,0 +1,24 @@
+# Local Apache only (not part of the build).
+# Serves the built site from dist/ at http://localhost/for-fun/cv/ (build it with `npm run build:local`).
+# The app uses a hash router (#/book, #/print ...), so every address is the one page: no route rewriting is needed.
+# Needs mod_rewrite and `AllowOverride FileInfo` (or All) for this folder, like ../zodiac/.htaccess.
+# Always check with the server for a fresh copy while developing (a 304 answer is cheap).
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /for-fun/cv/
+  # / -> the built home page
+  RewriteRule ^$ dist/index.html [L]
+  # a file of the build: assets/, storybook/, ...
+  RewriteCond %{DOCUMENT_ROOT}/for-fun/cv/dist/$1 -f
+  RewriteRule ^(.+)$ dist/$1 [L]
+  # /storybook -> /storybook/
+  RewriteCond %{DOCUMENT_ROOT}/for-fun/cv/dist/$1/index.html -f
+  RewriteRule ^(.+[^/])$ %{REQUEST_URI}/ [R=301,L]
+  # /storybook/ -> dist/storybook/index.html
+  RewriteCond %{DOCUMENT_ROOT}/for-fun/cv/dist/$1index.html -f
+  RewriteRule ^(.+/)$ dist/$1index.html [L]
+</IfModule>
